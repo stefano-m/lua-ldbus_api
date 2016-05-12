@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldbus_api</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Basic_types">Basic types </a></li>
+<li><a href="#Container_types">Container types </a></li>
+</ul>
+
+
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>README</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../index.html">ldbus_api</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+<h1>Description</h1>
+
+<p>A high level <a href="https://dbus.freedesktop.org/doc/dbus-specification.html">DBus</a>
+API for Lua built on top of the
+<a href="https://github.com/daurnimator/ldbus">ldbus</a> library.</p>
+
+<h1>DBus data representation:</h1>
+
+<p><a href="https://dbus.freedesktop.org/doc/dbus-specification.html#type-system">DBus data is typed</a>, this is mapped in a Lua table with the following shape:</p>
+
+
+<pre>
+dbus_data = {
+     sig = &lt;DBus signature&gt;,
+     value = &lt;Lua <span class="global">type</span>&gt;
+   }
+</pre>
+
+<p><a name="Basic_types"></a></p>
+<h2>Basic types</h2>
+
+<h3>Int32 and other numbers</h3>
+<p>All DBus numeric types map to Lua numbers. For example:</p>
+
+
+<pre>
+{
+  sig = ldbus.basic_types.int32, <span class="comment">-- i.e. "i"
+</span>  value = <span class="number">256</span>
+}
+</pre>
+
+<h3>Boolean</h3>
+
+
+<pre>
+{
+  sig = ldbus.basic_types.boolean, <span class="comment">-- i.e. "b"
+</span>  value = <span class="keyword">false</span>
+}
+</pre>
+
+<p><a name="Container_types"></a></p>
+<h2>Container types</h2>
+
+<h3>Variant</h3>
+
+
+<pre>
+{
+    sig = ldbus.types.variant, <span class="comment">-- i.e. "v"
+</span>    value = &lt;DBus data&gt;
+}
+</pre>
+
+<p>example:</p>
+
+
+<pre>
+{
+    sig = ldbus.types.variant,
+    value = {
+                sig = ldbus.basic_types.uint32,
+                value = <span class="number">4294967295</span>
+             }
+}
+</pre>
+
+<h3>Array</h3>
+<p>A DBus array is an homogeneous Lua array, i.e. an array whose
+elements are of the same type.</p>
+
+
+<pre>
+{
+  sig = ldbus.types.array .. &lt;contents signature&gt;,
+  value = {&lt;contents&gt;} <span class="comment">-- homogeneous array
+</span>}
+</pre>
+
+<p>   examples:</p>
+
+
+<pre>
+{
+  sig = <span class="string">"ai"</span>, <span class="comment">-- i.e. array of int32
+</span>  value = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>}
+}
+
+{
+  sig = <span class="string">"aas"</span>, <span class="comment">-- i.e. array of arrays of strings
+</span>  value = {{<span class="string">"a"</span>, <span class="string">"b"</span>}, {<span class="string">"c"</span>, <span class="string">"d"</span>}, {<span class="string">"e"</span>}}
+}
+</pre>
+
+<h3>Dictionary (Array of Dict Entries)</h3>
+
+
+<pre>
+{
+  sig = ldbus.types.array .. <span class="string">"{"</span> .. &lt;key <span class="global">type</span>&gt; &lt;value <span class="global">type</span>&gt; .. <span class="string">"}"</span>,
+  value = { &lt;key1&gt; = &lt;value1&gt;, &lt;key2&gt; = &lt;value2&gt;}
+}
+</pre>
+
+<p>   examples:</p>
+
+
+<pre>
+{
+  sig = <span class="string">"a{ss}"</span>
+  value = {a = <span class="string">"A"</span>, b = <span class="string">"B"</span>, c = <span class="string">"C"</span>}
+}
+
+{
+  sig = <span class="string">"a{sa{si}}"</span>, <span class="comment">-- nested dictionary
+</span>  value = {outer1 = {inner1 = <span class="number">1</span>}, outer2 = {inner2 = <span class="number">2</span>}}
+}
+</pre>
+
+<h3>Struct</h3>
+
+
+<pre>
+{
+  sig = <span class="string">"("</span> .. &lt;type1&gt; .. &lt;type2&gt; .. &lt;type3&gt; [...] .. <span class="string">")"</span>,
+  value = { &lt;value1&gt;, &lt;value2&gt;, &lt;value3&gt;, [...]} <span class="comment">-- heterogeneous array
+</span>}
+</pre>
+
+<p>   examples:</p>
+
+
+<pre>
+{
+  sig = <span class="string">"(ibs)"</span>,
+  value = { <span class="number">1</span>, <span class="keyword">true</span>, <span class="string">"hello Lua!"</span>}
+}
+
+{
+  sig = <span class="string">"(ia{si}s)"</span>,
+  value = {<span class="number">1</span>, {one = <span class="number">5</span>, two = <span class="number">6</span>, three = <span class="number">7</span>}, <span class="string">"hello Lua!"</span>}
+}
+</pre>
+
+<h1>Generating the documentation</h1>
+
+<p>You will need <a href="https://stevedonovan.github.io/ldoc/">ldoc</a> to generate the documentation.
+Once it's installed, you can run <code>ldoc .</code> from the project's directory (i.e. where <code>config.ld</code> is located).
+The command will generate HTML documentation in the <code>doc</code> folder.</p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2016-08-12 23:59:36 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

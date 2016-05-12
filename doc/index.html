@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldbus_api</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>ldbus_api</strong></li>
+</ul>
+<h2>Topics</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>ldbus_api</code></h1>
+<p>A high level <a href="https://dbus.freedesktop.org/doc/dbus-specification.html">DBus</a>
+API for Lua built on top of the
+<a href="https://github.com/daurnimator/ldbus">ldbus</a> library.</p>
+<p>Adds the <code>ldbus.api</code> and <a href="index.html#ldbus.buses">ldbus.buses</a> tables to <code>ldbus</code>.</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: 2016 Stefano Mazzucco</li>
+        <li><strong>License</strong>: Apache License, version 2.0</li>
+        <li><strong>Author</strong>: Stefano Mazzucco <stefano AT curso DOT re></li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.from_iter">ldbus.api.from_iter (iter)</a></td>
+	<td class="summary">Return a table representing DBus data from a DBus iterable.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.from_message">ldbus.api.from_message (message)</a></td>
+	<td class="summary">Return an array of tables representing DBus data from a DBus message, or nil.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.parse_signature">ldbus.api.parse_signature (sig)</a></td>
+	<td class="summary">Parse a string representing a DBus signature.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.call">ldbus.api.call (opts)</a></td>
+	<td class="summary">Call a DBus method on a given interface blocking execution.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.call_async">ldbus.api.call_async (opts)</a></td>
+	<td class="summary">Call a method on a DBus interface asynchrounously.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.get_async_response">ldbus.api.get_async_response (pending)</a></td>
+	<td class="summary">Forcefully get a response from a pending DBus call.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.send_signal">ldbus.api.send_signal (opts)</a></td>
+	<td class="summary">Send a signal.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.watch">ldbus.api.watch (bus, filter)</a></td>
+	<td class="summary">Watch a bus for messages matching a filter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.serve">ldbus.api.serve (bus, destination, callbacks)</a></td>
+	<td class="summary">Serve a an interface on the given bus.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.get_value">ldbus.api.get_value (dbus_data)</a></td>
+	<td class="summary">Get the value from DBus data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.api.examples.echo">ldbus.api.examples.echo (msg, conn)</a></td>
+	<td class="summary">Callback that sends back whatever it receives.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ldbus.buses">ldbus.buses</a></td>
+	<td class="summary">Available connections to the DBus daemon.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ldbus.api.from_iter"></a>
+    <strong>ldbus.api.from_iter (iter)</strong>
+    </dt>
+    <dd>
+    Return a table representing DBus data from a DBus iterable.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">iter</span>
+         A DBus iterable obtained from ldbus.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A table with 'sig' and 'value' fields representing DBus data.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ldbus.api.from_message">from_message</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.from_message"></a>
+    <strong>ldbus.api.from_message (message)</strong>
+    </dt>
+    <dd>
+    Return an array of tables representing DBus data from a DBus message, or nil.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+         A DBus message obtained from ldbus.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        An array of tables with 'sig' and 'value' fields representing DBus data.</li>
+        <li>
+        nil If the message is empty</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ldbus.api.from_iter">from_iter</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.parse_signature"></a>
+    <strong>ldbus.api.parse_signature (sig)</strong>
+    </dt>
+    <dd>
+    Parse a string representing a DBus signature.
+ The returned values can be passed to parse_signature again
+ for further refinement.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sig</span>
+         A string representing a DBus signature.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An array of strings representing the components of the signature.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.call"></a>
+    <strong>ldbus.api.call (opts)</strong>
+    </dt>
+    <dd>
+    Call a DBus method on a given interface blocking execution.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+
+<p> A table defining the options to be passed.</p>
+
+<p><code>opts</code> must contain the following fields:</p>
+
+<blockquote>
+    <p><code>bus</code>: The bus name ("session" or "system") or a valid
+    <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+    as a string.</p>
+
+    <p><code>dest</code>: The destination as a string.</p>
+
+    <p><code>path</code>: The object path as a string.</p>
+
+    <p><code>interface</code>: The interface name as a string.</p>
+
+    <p><code>method</code>: The method to be called as a string.</p>
+
+    <p><code>args</code>: The arguments to be passed to the method as an array of DBus data.</p>
+</blockquote>
+
+<p>The following field is optional:</p>
+
+<blockquote>
+    <p><code>timeout</code>: The timeout in seconds as a number after which the blocking call will fail.</p>
+</blockquote>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A table representing the DBus data.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#ldbus.api.call_async">call_async</a></li>
+         <li><a href="index.html#ldbus.api.from_message">from_message</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.call_async"></a>
+    <strong>ldbus.api.call_async (opts)</strong>
+    </dt>
+    <dd>
+    Call a method on a DBus interface asynchrounously.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+         A table defining the options to be passed.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An UserData object representing a pending DBus call
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ldbus.api.call">call</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.get_async_response"></a>
+    <strong>ldbus.api.get_async_response (pending)</strong>
+    </dt>
+    <dd>
+    Forcefully get a response from a pending DBus call.
+ This is a blocking call that may never return!
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pending</span>
+         An UserData object representing a pending DBus call
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A table representing the DBus data.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#ldbus.api.from_message">from_message</a></li>
+         <li><a href="index.html#ldbus.api.call_async">call_async</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.send_signal"></a>
+    <strong>ldbus.api.send_signal (opts)</strong>
+    </dt>
+    <dd>
+    Send a signal.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+
+<p> A table defining the options to be passed.</p>
+
+<p><code>opts</code> must contain the following fields:</p>
+
+<blockquote>
+    <p><code>bus</code>: The bus name ("session" or "system") or a valid
+    <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+    as a string.</p>
+
+    <p><code>path</code>: The object path as a string.</p>
+
+    <p><code>interface</code>: The interface name as a string.</p>
+
+    <p><code>signal</code>: The signal to be sent as a string.</p>
+
+    <p><code>args</code>: The arguments to be passed to the method as an array of DBus data.</p>
+</blockquote>
+
+<p>The following field is optional as signals usually do not need a destination:</p>
+
+<blockquote>
+    <p><code>dest</code>: The destination as a string.</p>
+</blockquote>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Whether the signal was sent or not (<code>true</code> or <code>false</code>/<code>nil</code>).
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.watch"></a>
+    <strong>ldbus.api.watch (bus, filter)</strong>
+    </dt>
+    <dd>
+    Watch a bus for messages matching a filter.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bus</span>
+         The bus name ("session" or "system") or a valid
+<a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+as a string.
+        </li>
+        <li><span class="parameter">filter</span>
+
+<p> A string that conforms to the
+<a href="https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-routing-match-rules">DBus match rules</a>.
+For example:</p>
+
+<pre><code>filter="type=signal,sender=org.freedesktop.DBus,\
+             interface=org.freedesktop.DBus,\
+             member=Foo,path=/bar/foo"
+</code></pre>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+
+<p> A function (that wraps a coroutine) that can be called with no arguments
+<strong>and</strong> the DBus connection returned by the DBus daemon.
+The function call will return the DBus data table that matches the filter,
+or "no<em>answer" if nothing has been received yet. If the connection is closed,
+the function will return "connection</em>closed".</p>
+
+<p><strong>Note</strong>:</p>
+
+<ul>
+    <li>all messages that specify the current connection as its <strong>destination</strong>
+    will be matched <strong>regardless</strong> of the filter.</li>
+    <li>each call to <a href="index.html#ldbus.api.watch">watch</a> within the <strong>same process</strong> will <strong>append</strong> a match rule
+    to the <strong>same</strong> connection.
+    E.g. when one calls <code>watch(&quot;session&quot;, &quot;type=signal&quot;)</code> and then they call
+    <code>watch(&quot;session&quot;, &quot;member=SomeMethod&quot;)</code>, the function returned by the <strong>second</strong>
+    call will also match the messages from <strong>first</strong> filter!
+    This is due to the fact that DBus returns one unique connection per process.
+    You can still use the connection returned to remove the previous filter, e.g.
+    <code>w, c = watch(&quot;session&quot;, &quot;member=SomeMethod&quot;)</code> and then
+    <code>ldbus.bus.remove_match(c, &quot;type=signal)</code>.
+    That would of course break the <strong>first</strong> call though.</li>
+</ul>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.serve"></a>
+    <strong>ldbus.api.serve (bus, destination, callbacks)</strong>
+    </dt>
+    <dd>
+    Serve a an interface on the given bus.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bus</span>
+         The bus name ("session" or "system") or a valid
+<a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+as a string.
+        </li>
+        <li><span class="parameter">destination</span>
+         The destination interface.
+        </li>
+        <li><span class="parameter">callbacks</span>
+         An array of functions that will be called when the interface
+receives a method call.</p>
+
+<p>Each callback will be passed a DBus message and a DBus connection
+and it should return two parameters: <code>status</code> and <code>serial</code> that should
+be compatible to what <code>ldbus</code> uses in <code>connection:send</code>.
+In particular, if <code>status</code> is <code>nil</code> it means that the request has not
+been processed yet. If a callback errors, the <code>{false, &lt;ERROR MESSAGE&gt;}</code> pair
+is returned istead.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A function that accepts no arguments (and wraps a coroutine).
+Each time the function is called, it will return an array of
+the <code>status</code> and <code>serial</code> from the callback or the pair
+"connection_closed", <code>nil</code> if the connection is closed.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ldbus.api.examples.echo">ldbus.api.examples.echo</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.get_value"></a>
+    <strong>ldbus.api.get_value (dbus_data)</strong>
+    </dt>
+    <dd>
+    Get the value from DBus data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dbus_data</span>
+         A table representing DBus data (i.e. has a key called 'value') or a basic Lua type (number, string, etc.)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The value of the DBus data with its signature stripped
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ldbus.api.examples.echo"></a>
+    <strong>ldbus.api.examples.echo (msg, conn)</strong>
+    </dt>
+    <dd>
+    Callback that sends back whatever it receives.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">msg</span>
+         An ldbus DBus message
+        </li>
+        <li><span class="parameter">conn</span>
+         An ldbus DBus connection
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The <code>status</code>, <code>serial</code> pair returned by <code>ldbus</code> <code>connection:send</code>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ldbus.api.serve">serve</a>
+    </ul>
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ldbus.buses"></a>
+    <strong>ldbus.buses</strong>
+    </dt>
+    <dd>
+    Available connections to the DBus daemon.  Fields on this table
+ can only be accessed. Trying to set fields will result in an error.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">session</span>
+         Connection to the session bus for this process
+        </li>
+        <li><span class="parameter">system</span>
+          Connection to the system bus for this process
+        </li>
+        <li><span class="parameter">any_valid_dbus_address</span>
+         Connection to the
+ <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>.
+ If a connection cannot be established, an error will be raised.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2016-08-12 23:59:36 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
