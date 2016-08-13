@@ -406,6 +406,8 @@ the function will return "connection_closed".
 
 **Note**:
 
+* `ldbus.bus.add_match` is used internally for the session and system buses
+  **only**.
 * all messages that specify the current connection as its **destination**
 will be matched **regardless** of the filter.
 * each call to `watch` within the **same process** will **append** a match rule
@@ -421,7 +423,12 @@ will be matched **regardless** of the filter.
 ]]
 function ldbus.api.watch(bus, filter)
    local conn = ldbus.buses[bus]
-   assert(ldbus.bus.add_match(conn, filter), "Could not add match rule " .. filter)
+
+  if bus == "session" or bus == "system" then
+    assert(ldbus.bus.add_match(conn, filter),
+           "Could not add match rule " .. filter)
+  end
+
    conn:flush()
 
    local fn =  coroutine.wrap(
