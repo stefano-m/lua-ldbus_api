@@ -401,8 +401,8 @@ For example:
 @return A function (that wraps a coroutine) that can be called with no arguments
 **and** the DBus connection returned by the DBus daemon.
 The function call will return the DBus data table that matches the filter,
-or "no_answer" if nothing has been received yet. If the connection is closed,
-the function will return "connection_closed".
+or `"no_answer"` if nothing has been received yet. If the connection is closed,
+the function will return `"connection_closed"`.
 
 **Note**:
 
