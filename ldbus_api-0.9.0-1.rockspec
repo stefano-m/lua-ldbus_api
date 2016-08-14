@@ -1,8 +1,8 @@
 package = "ldbus_api"
- version = "0.9snapshot-1"
+ version = "0.9.0-1"
  source = {
     url = "git://github.com/stefano-m/lua-ldbus_api",
-    tag = "master"
+    tag = "v0.9.0"
  }
  description = {
     summary = "An high level DBus API on top of ldbus",
