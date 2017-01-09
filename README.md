@@ -112,4 +112,4 @@ elements are of the same type.
 
 You will need [ldoc](https://stevedonovan.github.io/ldoc/) to generate the documentation.
 Once it's installed, you can run `ldoc .` from the project's directory (i.e. where `config.ld` is located).
-The command will generate HTML documentation in the `doc` folder.
+The command will generate HTML documentation in the `docs` folder.

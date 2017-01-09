@@ -35,11 +35,11 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>ldbus_api</strong></li>
 </ul>
 <h2>Topics</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="">
   <li><a href="topics/README.md.html">README</a></li>
 </ul>
 
@@ -49,9 +49,9 @@
 
 <h1>Module <code>ldbus_api</code></h1>
 <p>A high level <a href="https://dbus.freedesktop.org/doc/dbus-specification.html">DBus</a>
-API for Lua built on top of the
-<a href="https://github.com/daurnimator/ldbus">ldbus</a> library.</p>
-<p>Adds the <code>ldbus.api</code> and <a href="index.html#ldbus.buses">ldbus.buses</a> tables to <code>ldbus</code>.</p>
+  API for Lua built on top of the
+  <a href="https://github.com/daurnimator/ldbus">ldbus</a> library.</p>
+<p>  Adds the <code>ldbus.api</code> and <a href="index.html#ldbus.buses">ldbus.buses</a> tables to <code>ldbus</code>.</p>
     <h3>Info:</h3>
     <ul>
         <li><strong>Copyright</strong>: 2016 Stefano Mazzucco</li>
@@ -119,7 +119,7 @@ API for Lua built on top of the
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
@@ -220,34 +220,27 @@ API for Lua built on top of the
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
+         A table defining the options to be passed.</p>
 
-<p> A table defining the options to be passed.</p>
+<p>  <code>opts</code> must contain the following fields:</p>
 
-<p><code>opts</code> must contain the following fields:</p>
+<p>  > <code>bus</code>: The bus name ("session" or "system") or a valid
+  > <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+  > as a string.</p>
 
-<blockquote>
-    <p><code>bus</code>: The bus name ("session" or "system") or a valid
-    <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
-    as a string.</p>
+<p>  > <code>dest</code>: The destination as a string.</p>
 
-    <p><code>dest</code>: The destination as a string.</p>
+<p>  > <code>path</code>: The object path as a string.</p>
 
-    <p><code>path</code>: The object path as a string.</p>
+<p>  > <code>interface</code>: The interface name as a string.</p>
 
-    <p><code>interface</code>: The interface name as a string.</p>
+<p>  > <code>method</code>: The method to be called as a string.</p>
 
-    <p><code>method</code>: The method to be called as a string.</p>
+<p>  > <code>args</code>: The arguments to be passed to the method as an array of DBus data.</p>
 
-    <p><code>args</code>: The arguments to be passed to the method as an array of DBus data.</p>
-</blockquote>
+<p>  The following field is optional:</p>
 
-<p>The following field is optional:</p>
-
-<blockquote>
-    <p><code>timeout</code>: The timeout in seconds as a number after which the blocking call will fail.</p>
-</blockquote>
-
-
+<p>  > <code>timeout</code>: The timeout in seconds as a number after which the blocking call will fail.
         </li>
     </ul>
 
@@ -337,32 +330,25 @@ API for Lua built on top of the
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
+         A table defining the options to be passed.</p>
 
-<p> A table defining the options to be passed.</p>
+<p>  <code>opts</code> must contain the following fields:</p>
 
-<p><code>opts</code> must contain the following fields:</p>
+<p>  > <code>bus</code>: The bus name ("session" or "system") or a valid
+  > <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+  > as a string.</p>
 
-<blockquote>
-    <p><code>bus</code>: The bus name ("session" or "system") or a valid
-    <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
-    as a string.</p>
+<p>  > <code>path</code>: The object path as a string.</p>
 
-    <p><code>path</code>: The object path as a string.</p>
+<p>  > <code>interface</code>: The interface name as a string.</p>
 
-    <p><code>interface</code>: The interface name as a string.</p>
+<p>  > <code>signal</code>: The signal to be sent as a string.</p>
 
-    <p><code>signal</code>: The signal to be sent as a string.</p>
+<p>  > <code>args</code>: The arguments to be passed to the method as an array of DBus data.</p>
 
-    <p><code>args</code>: The arguments to be passed to the method as an array of DBus data.</p>
-</blockquote>
+<p>  The following field is optional as signals usually do not need a destination:</p>
 
-<p>The following field is optional as signals usually do not need a destination:</p>
-
-<blockquote>
-    <p><code>dest</code>: The destination as a string.</p>
-</blockquote>
-
-
+<p>  > <code>dest</code>: The destination as a string.
         </li>
     </ul>
 
@@ -388,21 +374,17 @@ API for Lua built on top of the
     <ul>
         <li><span class="parameter">bus</span>
          The bus name ("session" or "system") or a valid
-<a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
-as a string.
+  <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+  as a string.
         </li>
         <li><span class="parameter">filter</span>
+         A string that conforms to the
+  <a href="https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-routing-match-rules">DBus match rules</a>.
+  For example:</p>
 
-<p> A string that conforms to the
-<a href="https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-routing-match-rules">DBus match rules</a>.
-For example:</p>
-
-<pre><code>filter="type=signal,sender=org.freedesktop.DBus,\
-             interface=org.freedesktop.DBus,\
-             member=Foo,path=/bar/foo"
-</code></pre>
-
-
+<p>  filter="type=signal,sender=org.freedesktop.DBus,\
+  interface=org.freedesktop.DBus,\
+  member=Foo,path=/bar/foo"
         </li>
     </ul>
 
@@ -411,12 +393,12 @@ For example:</p>
 
 
 <p> A function (that wraps a coroutine) that can be called with no arguments
-<strong>and</strong> the DBus connection returned by the DBus daemon.
-The function call will return the DBus data table that matches the filter,
-or <code>&quot;no_answer&quot;</code> if nothing has been received yet. If the connection is closed,
-the function will return <code>&quot;connection_closed&quot;</code>.</p>
+  <strong>and</strong> the DBus connection returned by the DBus daemon.
+  The function call will return the DBus data table that matches the filter,
+  or <code>&quot;no_answer&quot;</code> if nothing has been received yet. If the connection is closed,
+  the function will return <code>&quot;connection_closed&quot;</code>.</p>
 
-<p><strong>Note</strong>:</p>
+<p>  <strong>Note</strong>:</p>
 
 <ul>
     <li><code>ldbus.bus.add_match</code> is used internally for the session and system buses
@@ -453,22 +435,22 @@ the function will return <code>&quot;connection_closed&quot;</code>.</p>
     <ul>
         <li><span class="parameter">bus</span>
          The bus name ("session" or "system") or a valid
-<a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
-as a string.
+  <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html#addresses">DBus address</a>
+  as a string.
         </li>
         <li><span class="parameter">destination</span>
          The destination interface.
         </li>
         <li><span class="parameter">callbacks</span>
          An array of functions that will be called when the interface
-receives a method call.</p>
+  receives a method call.</p>
 
-<p>Each callback will be passed a DBus message and a DBus connection
-and it should return two parameters: <code>status</code> and <code>serial</code> that should
-be compatible to what <code>ldbus</code> uses in <code>connection:send</code>.
-In particular, if <code>status</code> is <code>nil</code> it means that the request has not
-been processed yet. If a callback errors, the <code>{false, &lt;ERROR MESSAGE&gt;}</code> pair
-is returned istead.
+<p>  Each callback will be passed a DBus message and a DBus connection
+  and it should return two parameters: <code>status</code> and <code>serial</code> that should
+  be compatible to what <code>ldbus</code> uses in <code>connection:send</code>.
+  In particular, if <code>status</code> is <code>nil</code> it means that the request has not
+  been processed yet. If a callback errors, the <code>{false, &lt;ERROR MESSAGE&gt;}</code> pair
+  is returned istead.
         </li>
     </ul>
 
@@ -476,9 +458,9 @@ is returned istead.
     <ol>
 
          A function that accepts no arguments (and wraps a coroutine).
-Each time the function is called, it will return an array of
-the <code>status</code> and <code>serial</code> from the callback or the pair
-"connection_closed", <code>nil</code> if the connection is closed.
+  Each time the function is called, it will return an array of
+  the <code>status</code> and <code>serial</code> from the callback or the pair
+  "connection_closed", <code>nil</code> if the connection is closed.
     </ol>
 
 
@@ -547,7 +529,7 @@ the <code>status</code> and <code>serial</code> from the callback or the pair
 
 </dd>
 </dl>
-    <h2><a name="Tables"></a>Tables</h2>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
 
     <dl class="function">
     <dt>
@@ -585,8 +567,8 @@ the <code>status</code> and <code>serial</code> from the callback or the pair
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2016-08-14 14:41:59 </i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-01-09 22:47:38 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
