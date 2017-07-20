@@ -1,3 +1,11 @@
+# Deprecation Notice
+
+This project has been deprecated in favor
+of [lua-dbus_proxy](https://github.com/stefano-m/lua-dbus_proxy). It is
+unlikely that this project will be updated in future.
+
+If someone would like to maintain the project, please contact me.
+
 # Description
 
 A high level [DBus](https://dbus.freedesktop.org/doc/dbus-specification.html)
